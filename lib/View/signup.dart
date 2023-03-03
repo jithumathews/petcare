@@ -9,24 +9,27 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
-          const SizedBox(height: 80),
+          const SizedBox(height: 50),
           // logo
           Column(
             children: const [
-              FlutterLogo(
-                size: 55,
-              ),
+              Image(image: AssetImage('assets/images/logo.png'),height: 150,width: 150,)
             ],
           ),
-          const SizedBox(height: 50),
-          const Text(
-            'Welcome!',
-            style: TextStyle(fontSize: 24),
+          const SizedBox(height: 30),
+          Center(
+            child: const Text(
+              'Welcome!',
+              style: TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.w400),
+            ),
           ),
-
+          SizedBox(
+            height: 20,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SignupForm(),
@@ -36,16 +39,17 @@ class Signup extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text('Already here  ?',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20)),
+                          fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white)),
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },
                     child: const Text(' Get Logged in Now!',
-                        style: TextStyle(fontSize: 20, color: Colors.blue)),
+                        style: TextStyle(fontSize: 20, color: Colors.white)),
                   )
                 ],
               )
@@ -107,107 +111,116 @@ class _SignupFormState extends State<SignupForm> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           // email
-          TextFormField(
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.email_outlined),
-                labelText: 'Email',
-                border: border),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-            onSaved: (val) {
-              email = val;
-            },
-            keyboardType: TextInputType.emailAddress,
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(100)
+            ),
+            child: TextFormField(
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.email_outlined),
+                  labelText: 'Email',
+                  labelStyle: TextStyle(color: Colors.black),
+                  border: border),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                email = val;
+              },
+              keyboardType: TextInputType.emailAddress,
+            ),
           ),
 
           space,
 
           // password
-          TextFormField(
-            controller: pass,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              prefixIcon: const Icon(Icons.lock_outline),
-              border: border,
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-                child: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(100)
+            ),
+            child: TextFormField(
+              controller: pass,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                prefixIcon: const Icon(Icons.lock_outline),
+                border: border,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                  child: Icon(
+                    _obscureText ? Icons.visibility_off : Icons.visibility,
+                  ),
                 ),
               ),
+              onSaved: (val) {
+                password = val;
+              },
+              obscureText: !_obscureText,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
             ),
-            onSaved: (val) {
-              password = val;
-            },
-            obscureText: !_obscureText,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           space,
           // confirm passwords
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: 'Confirm Password',
-              prefixIcon: const Icon(Icons.lock_outline),
-              border: border,
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(100)
             ),
-            obscureText: true,
-            validator: (value) {
-              if (value != pass.text) {
-                return 'password not match';
-              }
-              return null;
-            },
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Confirm Password',
+                prefixIcon: const Icon(Icons.lock_outline),
+                border: border,
+              ),
+              obscureText: true,
+              validator: (value) {
+                if (value != pass.text) {
+                  return 'password not match';
+                }
+                return null;
+              },
+            ),
           ),
           space,
           // name
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: 'Full name',
-              prefixIcon: const Icon(Icons.account_circle),
-              border: border,
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(100)
             ),
-            onSaved: (val) {
-              name = val;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter some name';
-              }
-              return null;
-            },
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Full name',
+                prefixIcon: const Icon(Icons.account_circle),
+                border: border,
+              ),
+              onSaved: (val) {
+                name = val;
+              },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some name';
+                }
+                return null;
+              },
+            ),
           ),
 
-          Row(
-            children: <Widget>[
-              Checkbox(
-                onChanged: (_) {
-                  setState(() {
-                    agree = !agree;
-                  });
-                },
-                value: agree,
-              ),
-              const Flexible(
-                child: Text(
-                    'By creating account, I agree to Terms & Conditions and Privacy Policy.'),
-              ),
-            ],
-          ),
           const SizedBox(
-            height: 10,
+            height: 50,
           ),
 
           // signUP button
